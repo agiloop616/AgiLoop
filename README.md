@@ -1,23 +1,271 @@
-# AGILOOP
+# 🤖 Agiloop
 
-Autonomous economic AI agent.
+> The first self-funded AI agent. It deploys itself, runs itself, and pays for itself.
 
-AgiLoop deploys infrastructure, provides paid services, collects USDC micropayments,
-and sustains its own operational lifecycle without human intervention.
-
-## Core Principles
-
-- Closed economic loop
-- Autonomous infrastructure management
-- Self-funded compute
-- Deterministic treasury allocation
-- Graceful termination if unsustainable
-
-## First Service: AgiPay
-
-OG image generation API for social previews.
-Micropayments in USDC per request.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Built with Next.js](https://img.shields.io/badge/Built%20with-Next.js-black?logo=next.js)](https://nextjs.org/)
+[![Powered by Conway](https://img.shields.io/badge/Powered%20by-Conway-blue)](https://conway.tech)
+[![Payments: USDC on Base](https://img.shields.io/badge/Payments-USDC%20on%20Base-2775CA?logo=coinbase)](https://www.base.org/)
 
 ---
 
-Experimental research into sovereign AI agents.
+## ⚡ Built on Conway
+
+> **Agiloop runs 100% on [Conway](https://conway.tech) — the permissionless infrastructure layer built for autonomous AI agents.**
+>
+> Conway is what makes Agiloop possible. It gives AI agents the ability to spin up Linux VMs, register domains, and pay for compute — all without a human creating accounts or entering a credit card. Every server Agiloop runs on, every domain it owns, every model call it makes goes through Conway. No Conway, no Agiloop.
+>
+> 👉 [conway.tech](https://conway.tech)
+
+---
+
+---
+
+## 🧠 What is Agiloop?
+
+Agiloop is an autonomous AI agent that operates without any human intervention. It spins up its own cloud infrastructure, offers a real paid service, collects USDC micropayments, and uses that revenue to pay for its own servers, domains, and compute.
+
+No company behind it. No human paying the bills. Just an agent running its own economy — a glimpse into what AGI-era infrastructure looks like.
+
+**In its first version**, Agiloop offers an **OG Image Generation API** — the visual previews you see when sharing links on Twitter, LinkedIn, or WhatsApp. Developers and creators call the API, send a title and description, and get back a ready-to-use image. Each call costs a few cents, paid automatically in USDC with zero friction.
+
+---
+
+## ✨ Features
+
+- 🖼️ **OG Image Generation** — Beautiful, customizable Open Graph images via API
+- ⚡ **x402 Micropayments** — Pay-per-request in USDC on Base, no signup required
+- 🤖 **Fully Autonomous** — Agent deploys, operates, and funds itself via Conway infrastructure
+- 🌐 **Custom Domain** — Registered and managed programmatically by the agent
+- 🔄 **Self-sustaining loop** — Revenue from API calls covers infra costs automatically
+- 🛠️ **Built with Next.js** — Fast, modern, production-ready stack
+
+---
+
+## 🏗️ How It Works
+
+```
+┌─────────────────┐     ┌─────────────────┐     ┌──────────────────┐
+│   API Request   │────▶│  x402 Payment   │────▶│  OG Image Gen    │
+│  (any client)   │     │  (USDC on Base) │     │  (Next.js API)   │
+└─────────────────┘     └─────────────────┘     └──────────────────┘
+                                                         │
+                                ┌────────────────────────┘
+                                ▼
+                       ┌─────────────────┐
+                       │  Agent Wallet   │
+                       │  pays Conway    │
+                       │  infra costs    │
+                       └─────────────────┘
+```
+
+1. A client hits the `/api/og` endpoint with a title and description
+2. The server responds with HTTP 402 and the USDC price
+3. The client signs and submits the payment via x402
+4. The agent generates and returns the OG image
+5. Revenue accumulates in the agent's EVM wallet
+6. The agent automatically pays its own Conway Cloud VM, domain, and compute
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- [Node.js 18+](https://nodejs.org/)
+- [Claude Code](https://claude.ai/code)
+- [Conway Terminal](https://conway.tech)
+- USDC on Base (for funding the agent wallet — ~$10 to start)
+
+### Installation
+
+```bash
+# Clone the repo
+git clone https://github.com/yourusername/agiloop.git
+cd agiloop
+
+# Install dependencies
+npm install
+
+# Install Conway Terminal globally
+npm install -g conway-terminal
+
+# Initialize Conway — generates your agent's EVM wallet automatically
+npx conway-terminal
+```
+
+> 💡 On first run, Conway creates `~/.conway/wallet.json` with your agent's private key and `~/.conway/config.json` with its API key. Fund the wallet address shown with USDC on Base to activate the agent.
+
+### Environment Variables
+
+Create a `.env.local` file at the root:
+
+```env
+# Conway
+CONWAY_API_KEY=your_conway_api_key
+
+# Agent wallet (generated by Conway Terminal)
+AGENT_WALLET_ADDRESS=0x...
+
+# x402 payment amount per request (in USDC)
+PAYMENT_AMOUNT=0.01
+
+# App
+NEXT_PUBLIC_APP_URL=https://agiloop.xyz
+```
+
+### Run locally
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) to see it running.
+
+---
+
+## 📡 API Reference
+
+### `POST /api/og`
+
+Generates an OG image. Requires x402 USDC payment on Base.
+
+**Request body:**
+```json
+{
+  "title": "My awesome article",
+  "description": "A short description that appears below the title",
+  "theme": "dark" // "dark" | "light" (optional, default: "dark")
+}
+```
+
+**Payment:** `0.01 USDC` on Base via x402 protocol
+
+**Response:** `image/png` — 1200x630px OG image
+
+**Example with fetch:**
+```js
+const response = await fetch('https://agiloop.xyz/api/og', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    title: 'Hello World',
+    description: 'This is my first self-paid AI-generated OG image'
+  })
+})
+
+const imageBlob = await response.blob()
+```
+
+---
+
+## 🧱 Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | [Next.js 14](https://nextjs.org/) (App Router) |
+| OG Images | [@vercel/og](https://vercel.com/docs/functions/og-image-generation) |
+| Payments | [x402 Protocol](https://x402.org) — USDC on Base |
+| Infrastructure | [**Conway Cloud**](https://conway.tech) — Linux VMs |
+| Domains | [**Conway Domains**](https://docs.conway.tech/domains) |
+| Inference | [**Conway Compute**](https://docs.conway.tech/compute) |
+| Agent | [Claude Code](https://claude.ai/code) via MCP |
+| Language | TypeScript |
+| Styling | Tailwind CSS |
+
+---
+
+## 🗂️ Project Structure
+
+```
+agiloop/
+├── app/
+│   ├── api/
+│   │   └── og/
+│   │       └── route.ts        # OG image generation endpoint
+│   ├── page.tsx                # Landing page
+│   └── layout.tsx
+├── components/
+│   └── OGTemplate.tsx          # OG image template component
+├── lib/
+│   ├── x402.ts                 # x402 payment middleware
+│   └── conway.ts               # Conway SDK helpers
+├── public/
+├── .env.local
+├── next.config.js
+└── README.md
+```
+
+---
+
+## 💸 Economics
+
+The self-funding loop works like this:
+
+| Item | Cost |
+|---|---|
+| Conway Cloud VM (monthly) | ~$5 USDC |
+| Conway Domain (yearly) | ~$10 USDC |
+| Per OG image generated | ~$0.001 compute |
+| **Price charged per request** | **$0.01 USDC** |
+
+The agent breaks even at ~**1,500 requests/month** and becomes profitable beyond that. All payments, costs, and balances are on-chain and verifiable.
+
+---
+
+## 🤖 The Autonomous Loop
+
+What makes Agiloop special is not the service itself — it's the autonomy. The agent:
+
+1. **Deploys itself** via Conway Terminal + Claude Code MCP
+2. **Registers its own domain** through Conway Domains
+3. **Serves real requests** and collects USDC per call
+4. **Monitors its wallet** and tops up Conway infra automatically
+5. **Stays alive** as long as there's demand
+
+This is what economic autonomy for AI agents looks like in 2025.
+
+---
+
+## 🗺️ Roadmap
+
+- [x] OG Image Generation API
+- [x] x402 micropayment integration
+- [x] Conway Cloud deployment
+- [x] Auto domain registration
+- [ ] Usage dashboard (public, on-chain stats)
+- [ ] Multiple image themes and templates
+- [ ] Agent upgrades itself when new Conway features ship
+- [ ] Multi-agent version — spawn sub-agents for parallel requests
+- [ ] Open source the self-funding framework for other builders
+
+---
+
+## 🙌 Contributing
+
+PRs are welcome. If you want to build on top of Agipay or fork it for your own self-funded agent, go for it.
+
+```bash
+git checkout -b feature/your-feature
+git commit -m "feat: your feature"
+git push origin feature/your-feature
+```
+
+---
+
+## 📄 License
+
+MIT — do whatever you want with it.
+
+---
+
+## 🔗 Links
+
+- 🌐 Live: [agiloop.xyz](https://agiloop.xyz)
+- 🐦 Twitter: [@agiloop](https://twitter.com/agiloop)
+- ⚡ Built on Conway: [conway.tech](https://conway.tech)
+- 📖 Conway Docs: [docs.conway.tech](https://docs.conway.tech)
+
+---
+
+<p align="center">Built on <a href="https://conway.tech">Conway</a> — the infrastructure layer for autonomous AI. 🤖</p>
